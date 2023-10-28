@@ -49,7 +49,7 @@ def waitLogin(driver):
 
     print("Logged In")
 
-def clickOnFindStudentJobs(driver):
+def clickOnFindStudentJobsAndSearchOnCampusJobs(driver):
 
     element = driver.find_element(By.LINK_TEXT, "Find student jobs")
     element.click()
@@ -59,6 +59,19 @@ def clickOnFindStudentJobs(driver):
 
     # Wait for an element to be visible (replace with the actual element)
     results = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, 'Search On-Campus Jobs'))
+
+    results.click()
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.XPATH, '//*[@id="mainJobListContainer"]/div/div/div[1]/h2'))
+
+    print("Job search welcome")
+
+def selectCampusAndClick(driver):
+
+    element = driver.find_element(By.NAME, "keyWordSearch")
+    element.send_keys("campus:\ tempe")
+    element.send_keys(Keys.ENTER)
 
 def closeWindow(driver):
     
@@ -72,7 +85,9 @@ if __name__ == "__main__":
 
     waitLogin(driver)
 
-    clickOnFindStudentJobs(driver)
+    clickOnFindStudentJobsAndSearchOnCampusJobs(driver)
+
+    selectCampusAndClick(driver)
 
     done = False
 
