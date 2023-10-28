@@ -291,7 +291,7 @@ def attachments(driver):
     wait = WebDriverWait(driver, 60)
 
     # Wait for an element to be visible (replace with the actual element)
-    results = wait.until(lambda driver: driver.find_element(By.ID, "shownext"))
+    element = wait.until(EC.text_to_be_present_in_element((By.ID, "ApplyPageHead"), "Attachments"))
 
     element = driver.find_element(By.ID, "shownext")
     element.click()
@@ -304,7 +304,7 @@ def references(driver):
     wait = WebDriverWait(driver, 60)
 
     # Wait for an element to be visible (replace with the actual element)
-    results = wait.until(lambda driver: driver.find_element(By.ID, "shownext"))
+    element = wait.until(EC.text_to_be_present_in_element((By.ID, "ApplyPageHead"), "References"))
 
     element = driver.find_element(By.ID, "shownext")
     element.click()
@@ -317,7 +317,7 @@ def eeoFormGender(driver):
     wait = WebDriverWait(driver, 60)
 
     # Wait for an element to be visible (replace with the actual element)
-    results = wait.until(lambda driver: driver.find_element(By.ID, "shownext"))
+    element = wait.until(EC.text_to_be_present_in_element((By.ID, "ApplyPageHead"), "EEO Form - Gender and Hispanic/Latino"))
 
     element = driver.find_element(By.ID, "shownext")
     element.click()
@@ -330,7 +330,7 @@ def eeoFormRace(driver):
     wait = WebDriverWait(driver, 60)
 
     # Wait for an element to be visible (replace with the actual element)
-    results = wait.until(lambda driver: driver.find_element(By.ID, "shownext"))
+    element = wait.until(EC.text_to_be_present_in_element((By.ID, "ApplyPageHead"), "EEO form - Race"))
 
     element = driver.find_element(By.ID, "shownext")
     element.click()
@@ -343,9 +343,9 @@ def review(driver):
     wait = WebDriverWait(driver, 60)
 
     # Wait for an element to be visible (replace with the actual element)
-    results = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, "save"))
+    element = wait.until(EC.text_to_be_present_in_element((By.ID, "ApplyPageHead"), "Review"))
 
-    element = driver.find_element(By.LINK_TEXT, "save")
+    element = driver.find_element(By.ID, "save")
     element.click()
 
     return   
