@@ -14,7 +14,7 @@ Before you can use this script, make sure you have the following installed:
 
 - Python 3.x
 - Selenium: You can install it using `pip install selenium`.
-- A compatible web driver for your browser (e.g., ChromeDriver for Google Chrome).
+- A compatible web driver for your browser (e.g., ChromeDriver for Google Chrome). https://chromedriver.storage.googleapis.com/index.html?path=114.0.5735.90/
 
 ## Usage
 
