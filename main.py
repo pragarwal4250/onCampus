@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import json
@@ -30,9 +31,11 @@ def setCredAndLogin(dataFile, driver, userName, password):
     element.send_keys(Keys.ENTER)
 
 def openWebPage(webPageName):
-
+    
     # Initialize the WebDriver for your chosen browser
     driver = webdriver.Chrome()  # Use 'webdriver.Firefox()' for Firefox
+
+    driver.maximize_window()
 
     # Navigate to a website
     driver.get(webPageName)
@@ -100,6 +103,294 @@ def getAllJobLinksOnPage(driver):
 
     return data_list
 
+def startYourApplication(driver):
+
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.ID, "startapply"))
+
+    element = driver.find_element(By.ID, "startapply")
+    element.click()
+
+    return
+
+def applicationInstructions(driver):
+
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.ID, "shownext"))
+
+    element = driver.find_element(By.ID, "shownext")
+    element.click()
+
+    return
+
+def standardApplicationQuestions(driver):
+
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.ID, "shownext"))
+
+    time.sleep(1)
+
+    # Are you currently eligible to work in the United States without ASU sponsorship?
+    #
+    #
+    # Find the radio button element you want to select
+    radio_button = driver.find_element(By.ID, "radio-44674-Yes")
+
+    # Check if the radio button is selected; if not, click it to select it
+    if not radio_button.is_selected():
+        radio_button.click()
+    
+    # Are you an ASU student?
+    #
+    #
+    # Find the radio button element you want to select
+    radio_button = driver.find_element(By.ID, "radio-45523-Yes")
+
+    # Check if the radio button is selected; if not, click it to select it
+    if not radio_button.is_selected():
+        radio_button.click()
+    
+    # Are you enrolled in classes at ASU?
+    #
+    #
+    # Find the radio button element you want to select
+    radio_button = driver.find_element(By.ID, "radio-45534-Yes")
+
+    # Check if the radio button is selected; if not, click it to select it
+    if not radio_button.is_selected():
+        radio_button.click()
+
+    # Are you eligible for FWS?
+    #
+    #
+    # Find the radio button element you want to select
+    radio_button = driver.find_element(By.ID, "radio-61829-No")
+
+    # Check if the radio button is selected; if not, click it to select it
+    if not radio_button.is_selected():
+        radio_button.click()
+    
+    element = driver.find_element(By.ID, "shownext")
+    element.click()
+
+    results = wait.until(lambda driver: driver.find_element(By.ID, "custom_44925_1291_fname_slt_0_44925"))
+
+    # Find the dropdown element by its HTML id, name, or other locators
+    dropdown = Select(driver.find_element(By.ID, "custom_44925_1291_fname_slt_0_44925"))
+
+    results = wait.until(lambda driver: driver.find_element(By.XPATH, "//option[@value='Website']"))
+
+    element = driver.find_element(By.ID, "custom_44925_1291_fname_slt_0_44925-button")
+
+    # Scroll to the element
+    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+
+    # Now, interact with the element
+    element.click()
+
+    element.send_keys(Keys.ARROW_DOWN)
+    element.send_keys(Keys.ARROW_DOWN)
+    element.send_keys(Keys.ARROW_DOWN)
+    element.send_keys(Keys.ENTER)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.ID, "shownext"))
+
+    element = driver.find_element(By.ID, "shownext")
+    element.click()    
+
+    return
+
+def contactInformation(driver):
+
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, "Import Profile"))
+
+    # Resume
+    element = driver.find_element(By.LINK_TEXT, "Add résumé/CV")
+    element.click()
+
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, "Saved résumés/CVs"))
+
+    element = driver.find_element(By.LINK_TEXT, "Saved résumés/CVs")
+    element.click()
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, "Add file"))
+
+    # Find the radio button element you want to select
+    radio_button = driver.find_element(By.ID, "234")
+
+    # Check if the radio button is selected; if not, click it to select it
+    if not radio_button.is_selected():
+        radio_button.click()
+
+
+    element = driver.find_element(By.LINK_TEXT, "Add file")
+    element.click()
+
+    
+    
+    # Cover Letter
+    element = driver.find_element(By.LINK_TEXT, "Add cover letter")
+    element.click()
+
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, "Saved cover letters"))
+
+    element = driver.find_element(By.LINK_TEXT, "Saved cover letters")
+    element.click()
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, "Add file"))
+
+    # Find the radio button element you want to select
+    radio_button = driver.find_element(By.ID, "231")
+
+    # Check if the radio button is selected; if not, click it to select it
+    if not radio_button.is_selected():
+        radio_button.click()
+
+
+    element = driver.find_element(By.LINK_TEXT, "Add file")
+    element.click()
+
+    element = driver.find_element(By.ID, "shownext")
+    element.click()
+
+def attachments(driver):
+
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.ID, "shownext"))
+
+    element = driver.find_element(By.ID, "shownext")
+    element.click()
+
+    return
+
+def references(driver):
+
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.ID, "shownext"))
+
+    element = driver.find_element(By.ID, "shownext")
+    element.click()
+
+    return
+
+def eeoFormGender(driver):
+
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.ID, "shownext"))
+
+    element = driver.find_element(By.ID, "shownext")
+    element.click()
+
+    return
+
+def eeoFormRace(driver):
+
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.ID, "shownext"))
+
+    element = driver.find_element(By.ID, "shownext")
+    element.click()
+
+    return
+
+def review(driver):
+
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, "save"))
+
+    element = driver.find_element(By.LINK_TEXT, "save")
+    element.click()
+
+    return   
+
+def applyJob(driver):
+    
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.CSS_SELECTOR, 'p.question.thick.ng-binding.ng-scope.jobdescriptionInJobDetails'))
+
+    try:
+        # Try to find the link by its text
+        link_element = driver.find_element(By.LINK_TEXT, "Check your applications.")
+        print(f"Already applied")
+        return
+    except:
+        print(f"Applying")
+
+        element = driver.find_element(By.ID, "applyFromDetailBtn")
+        element.click()
+        
+        startYourApplication(driver)
+        applicationInstructions(driver)
+        standardApplicationQuestions(driver)
+        contactInformation(driver)
+        attachments(driver)
+        references(driver)
+        eeoFormGender(driver)
+        eeoFormRace(driver)
+        review(driver)
+
+def processParsedLinks(driver, linksList):
+
+    for item in linksList:
+
+        index, link, date = item
+
+        # Simulate opening the link in a new tab using a keyboard shortcut (Ctrl+click)
+        link.send_keys(Keys.CONTROL + Keys.RETURN)  # Opens the link in a new tab
+
+        # Switch to the new tab
+        driver.switch_to.window(driver.window_handles[1])
+
+        applyJob(driver)
+
+        # Close the new tab (if needed)
+        driver.close()
+
+        # Switch back to the original tab (if needed)
+        driver.switch_to.window(driver.window_handles[0])
+
 def closeWindow(driver):
     
     driver.quit()
@@ -117,6 +408,8 @@ if __name__ == "__main__":
     selectCampusAndClick(driver)
 
     linksList = getAllJobLinksOnPage(driver) #[index, link, date]
+
+    processParsedLinks(driver, linksList)
 
     done = False
 
