@@ -73,6 +73,33 @@ def selectCampusAndClick(driver):
     element.send_keys("campus:\ tempe")
     element.send_keys(Keys.ENTER)
 
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
+
+    # Wait for an element to be visible (replace with the actual element)
+    results = wait.until(lambda driver: driver.find_element(By.ID, 'sortByLabel'))
+
+    print("Tempe jobs")
+
+def getAllJobLinksOnPage(driver):
+
+    # Find all list items with the specified class
+    job_list_items = driver.find_elements(By.CSS_SELECTOR, "li.job.baseColorPalette.ng-scope")
+
+    # Create a list to store the extracted data
+    data_list = []
+
+    # Loop through the list items and extract the link and date
+    for index, job_item in enumerate(job_list_items):
+        link_element = job_item.find_element(By.CSS_SELECTOR, "a.jobProperty.jobtitle")
+        date_element = job_item.find_element(By.CSS_SELECTOR, "p.jobProperty.position1")
+
+        date = date_element.text
+
+        data_list.append([index, link_element, date])
+
+    return data_list
+
 def closeWindow(driver):
     
     driver.quit()
@@ -88,6 +115,8 @@ if __name__ == "__main__":
     clickOnFindStudentJobsAndSearchOnCampusJobs(driver)
 
     selectCampusAndClick(driver)
+
+    linksList = getAllJobLinksOnPage(driver) #[index, link, date]
 
     done = False
 
