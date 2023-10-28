@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 import json
 
@@ -191,11 +192,8 @@ def standardApplicationQuestions(driver):
 
     element = driver.find_element(By.ID, "custom_44925_1291_fname_slt_0_44925-button")
 
-    # Scroll to the element
-    driver.execute_script("arguments[0].scrollIntoView(true);", element)
-
-    # Now, interact with the element
-    element.click()
+    actions = ActionChains(driver)
+    actions.move_to_element(element).click().perform()
 
     element.send_keys(Keys.ARROW_DOWN)
     element.send_keys(Keys.ARROW_DOWN)
@@ -216,23 +214,27 @@ def contactInformation(driver):
     wait = WebDriverWait(driver, 60)
 
     # Wait for an element to be visible (replace with the actual element)
-    results = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, "Import Profile"))
+    results = wait.until(lambda driver: driver.find_element(By.ID, "importprofile"))
 
     # Resume
     element = driver.find_element(By.LINK_TEXT, "Add résumé/CV")
     element.click()
 
+    # Switch to an iframe by ID, name, or index (replace with your specific iframe locator)
+    iframe_element = driver.find_element(By.ID, "profileBuilder")
+    driver.switch_to.frame(iframe_element)
+
     # Define an explicit wait with a timeout of 20 seconds
     wait = WebDriverWait(driver, 60)
 
     # Wait for an element to be visible (replace with the actual element)
-    results = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, "Saved résumés/CVs"))
+    results = wait.until(lambda driver: driver.find_element(By.ID, "btnSelectedSavedRC"))
 
-    element = driver.find_element(By.LINK_TEXT, "Saved résumés/CVs")
+    element = driver.find_element(By.ID, "btnSelectedSavedRC")
     element.click()
 
     # Wait for an element to be visible (replace with the actual element)
-    results = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, "Add file"))
+    results = wait.until(lambda driver: driver.find_element(By.CLASS_NAME, "primaryButton"))
 
     # Find the radio button element you want to select
     radio_button = driver.find_element(By.ID, "234")
@@ -241,27 +243,32 @@ def contactInformation(driver):
     if not radio_button.is_selected():
         radio_button.click()
 
-
-    element = driver.find_element(By.LINK_TEXT, "Add file")
+    element = driver.find_element(By.XPATH, "//button[@class='primaryButton']")
     element.click()
 
+    driver.switch_to.default_content()
     
     
     # Cover Letter
-    element = driver.find_element(By.LINK_TEXT, "Add cover letter")
+    wait = WebDriverWait(driver, 10)
+    element = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(text(), 'Add cover letter')]")))
     element.click()
+
+    # Switch to an iframe by ID, name, or index (replace with your specific iframe locator)
+    iframe_element = driver.find_element(By.ID, "profileBuilder")
+    driver.switch_to.frame(iframe_element)
 
     # Define an explicit wait with a timeout of 20 seconds
     wait = WebDriverWait(driver, 60)
 
     # Wait for an element to be visible (replace with the actual element)
-    results = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, "Saved cover letters"))
+    results = wait.until(lambda driver: driver.find_element(By.ID, "btnSelectedSavedRC"))
 
-    element = driver.find_element(By.LINK_TEXT, "Saved cover letters")
+    element = driver.find_element(By.ID, "btnSelectedSavedRC")
     element.click()
 
     # Wait for an element to be visible (replace with the actual element)
-    results = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, "Add file"))
+    results = wait.until(lambda driver: driver.find_element(By.CLASS_NAME, "primaryButton"))
 
     # Find the radio button element you want to select
     radio_button = driver.find_element(By.ID, "231")
@@ -270,9 +277,10 @@ def contactInformation(driver):
     if not radio_button.is_selected():
         radio_button.click()
 
-
-    element = driver.find_element(By.LINK_TEXT, "Add file")
+    element = driver.find_element(By.XPATH, "//button[@class='primaryButton']")
     element.click()
+
+    driver.switch_to.default_content()
 
     element = driver.find_element(By.ID, "shownext")
     element.click()
