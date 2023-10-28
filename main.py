@@ -1,11 +1,33 @@
 from selenium import webdriver
-from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import json
 
 mainWeb = "https://webapp4.asu.edu/myasu/student/finances"
+
+dataFile = "data.json"
+userName = None
+password = None
+
+def setCredAndLogin(dataFile, driver, userName, password):
+    
+    # Read the JSON data from the file
+    with open(dataFile, "r") as json_file:
+        data = json.load(json_file)
+
+    # Extract the username and password from the JSON data
+    userName = data["username"]
+    password = data["password"]
+
+    element = driver.find_element(By.ID, "username")
+    element.send_keys(userName)
+
+    element = driver.find_element(By.ID, "password")
+    element.send_keys(password)
+    element.send_keys(Keys.ENTER)
 
 def openWebPage(webPageName):
 
@@ -45,6 +67,8 @@ def closeWindow(driver):
 if __name__ == "__main__":
 
     driver = openWebPage(mainWeb)
+
+    setCredAndLogin(dataFile, driver, userName, password)
 
     waitLogin(driver)
 
