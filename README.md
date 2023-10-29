@@ -1,6 +1,6 @@
 # onCampus Automation
 
-This repository contains a Python script to automate certain tasks on the On-Campus jobs website at [Your University's Website]. It simplifies the process of applying for jobs by automating the following steps:
+This repository contains a Python script to automate certain tasks on the On-Campus jobs website at ASU. It simplifies the process of applying for jobs by automating the following steps:
 
 1. **Login to Your On-Campus Jobs Account**: The script uses your ASU username and password stored in a `data.json` file to log in to your account.
 
@@ -39,7 +39,7 @@ Before you can use this script, make sure you have the following installed:
    }
    ```
 
-4. Update the script to match your university's On-Campus jobs website URL and the specific elements on the pages. You can find the relevant HTML elements using browser developer tools.
+4. Run ChromeDriver.
 
 5. Run the script:
 
