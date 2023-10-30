@@ -125,6 +125,13 @@ def applicationInstructions(driver):
     # Wait for an element to be visible (replace with the actual element)
     results = wait.until(lambda driver: driver.find_element(By.ID, "shownext"))
 
+    # Locate the checkbox element by its ID
+    checkbox = driver.find_element(By.ID, "checkbox-87496-Agree")
+
+    # Check the checkbox if it's not already checked
+    if not checkbox.is_selected():
+        checkbox.click()
+
     element = driver.find_element(By.ID, "shownext")
     element.click()
 
