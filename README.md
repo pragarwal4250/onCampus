@@ -46,7 +46,7 @@ Before you can use this script, make sure you have the following installed:
 5. Run the script:
 
    ```
-   python onCampusAutomation.py
+   python main.py
    ```
 
 6. The script will automate the login, profile completion, and application process for you.
