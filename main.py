@@ -11,12 +11,8 @@ import json
 mainWeb = "https://webapp4.asu.edu/myasu/student/finances"
 
 dataFile = "data.json"
-userName = None
-password = None
-resume = None
-coverLetter = None
 
-def setCredAndLogin(dataFile, driver, userName, password, resume, coverLetter):
+def setCredAndLogin(dataFile, driver):
     
     # Read the JSON data from the file
     with open(dataFile, "r") as json_file:
@@ -34,6 +30,8 @@ def setCredAndLogin(dataFile, driver, userName, password, resume, coverLetter):
     element = driver.find_element(By.ID, "password")
     element.send_keys(password)
     element.send_keys(Keys.ENTER)
+
+    return resume, coverLetter
 
 def openWebPage(webPageName):
     
@@ -381,7 +379,7 @@ def applyJob(driver, resume, coverLetter):
         startYourApplication(driver)
         applicationInstructions(driver)
         standardApplicationQuestions(driver)
-        contactInformation(driver, resume, coverLetter, resume, coverLetter)
+        contactInformation(driver, resume, coverLetter)
         attachments(driver)
         references(driver)
         eeoFormGender(driver)
@@ -416,7 +414,7 @@ if __name__ == "__main__":
 
     driver = openWebPage(mainWeb)
 
-    setCredAndLogin(dataFile, driver, userName, password)
+    resume, coverLetter = setCredAndLogin(dataFile, driver)
 
     waitLogin(driver)
 
