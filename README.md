@@ -35,7 +35,9 @@ Before you can use this script, make sure you have the following installed:
    ```json
    {
        "username": "your_username",
-       "password": "your_password"
+       "password": "your_password",
+       "resume": "resume file name including extension",
+       "coverLetter": "cover letter filename inclusing extension"
    }
    ```
 

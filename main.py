@@ -13,8 +13,10 @@ mainWeb = "https://webapp4.asu.edu/myasu/student/finances"
 dataFile = "data.json"
 userName = None
 password = None
+resume = None
+coverLetter = None
 
-def setCredAndLogin(dataFile, driver, userName, password):
+def setCredAndLogin(dataFile, driver, userName, password, resume, coverLetter):
     
     # Read the JSON data from the file
     with open(dataFile, "r") as json_file:
@@ -23,6 +25,8 @@ def setCredAndLogin(dataFile, driver, userName, password):
     # Extract the username and password from the JSON data
     userName = data["username"]
     password = data["password"]
+    resume = data["resume"]
+    coverLetter = data["coverLetter"]
 
     element = driver.find_element(By.ID, "username")
     element.send_keys(userName)
@@ -215,7 +219,7 @@ def standardApplicationQuestions(driver):
 
     return
 
-def contactInformation(driver):
+def contactInformation(driver, resume, coverLetter):
 
     # Define an explicit wait with a timeout of 20 seconds
     wait = WebDriverWait(driver, 60)
@@ -243,12 +247,9 @@ def contactInformation(driver):
     # Wait for an element to be visible (replace with the actual element)
     results = wait.until(lambda driver: driver.find_element(By.CLASS_NAME, "primaryButton"))
 
-    # Find the radio button element you want to select
-    radio_button = driver.find_element(By.ID, "234")
-
-    # Check if the radio button is selected; if not, click it to select it
-    if not radio_button.is_selected():
-        radio_button.click()
+    # Find the radio button by its label text
+    radio_button = driver.find_element(By.XPATH, f'//label[text()="{resume}"]')
+    radio_button.click()
 
     element = driver.find_element(By.XPATH, "//button[@class='primaryButton']")
     element.click()
@@ -277,8 +278,9 @@ def contactInformation(driver):
     # Wait for an element to be visible (replace with the actual element)
     results = wait.until(lambda driver: driver.find_element(By.CLASS_NAME, "primaryButton"))
 
-    # Find the radio button element you want to select
-    radio_button = driver.find_element(By.ID, "231")
+    # Find the radio button by its label text
+    radio_button = driver.find_element(By.XPATH, f'//label[text()="{coverLetter}"]')
+    radio_button.click()
 
     # Check if the radio button is selected; if not, click it to select it
     if not radio_button.is_selected():
@@ -357,7 +359,7 @@ def review(driver):
 
     return   
 
-def applyJob(driver):
+def applyJob(driver, resume, coverLetter):
     
     # Define an explicit wait with a timeout of 20 seconds
     wait = WebDriverWait(driver, 60)
@@ -379,14 +381,14 @@ def applyJob(driver):
         startYourApplication(driver)
         applicationInstructions(driver)
         standardApplicationQuestions(driver)
-        contactInformation(driver)
+        contactInformation(driver, resume, coverLetter, resume, coverLetter)
         attachments(driver)
         references(driver)
         eeoFormGender(driver)
         eeoFormRace(driver)
         review(driver)
 
-def processParsedLinks(driver, linksList):
+def processParsedLinks(driver, linksList, resume, coverLetter):
 
     for item in linksList:
 
@@ -398,7 +400,7 @@ def processParsedLinks(driver, linksList):
         # Switch to the new tab
         driver.switch_to.window(driver.window_handles[1])
 
-        applyJob(driver)
+        applyJob(driver, resume, coverLetter)
 
         # Close the new tab (if needed)
         driver.close()
@@ -424,7 +426,7 @@ if __name__ == "__main__":
 
     linksList = getAllJobLinksOnPage(driver) #[index, link, date]
 
-    processParsedLinks(driver, linksList)
+    processParsedLinks(driver, linksList, resume, coverLetter)
 
     done = False
 
