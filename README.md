@@ -30,7 +30,7 @@ Before you can use this script, make sure you have the following installed:
    cd onCampus-automation
    ```
 
-3. Create a `data.json` file with your ASU username and password:
+3. Create a `data.json` file with your ASU username, password, names of resume and cover letter you want to use from the ones which are saved on the job portal:
 
    ```json
    {
