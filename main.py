@@ -12,6 +12,8 @@ mainWeb = "https://webapp4.asu.edu/myasu/student/finances"
 
 dataFile = "data.json"
 
+pages = 2
+
 def setCredAndLogin(dataFile, driver):
     
     # Read the JSON data from the file
@@ -422,9 +424,18 @@ if __name__ == "__main__":
 
     selectCampusAndClick(driver)
 
-    linksList = getAllJobLinksOnPage(driver) #[index, link, date]
+    # Define an explicit wait with a timeout of 20 seconds
+    wait = WebDriverWait(driver, 60)
 
-    processParsedLinks(driver, linksList, resume, coverLetter)
+    for i in range(pages):
+
+        linksList = getAllJobLinksOnPage(driver) #[index, link, date]
+
+        processParsedLinks(driver, linksList, resume, coverLetter)
+
+        # Wait for an element to be visible (replace with the actual element)
+        element = wait.until(lambda driver: driver.find_element(By.LINK_TEXT, 'Next >'))
+        element.click()
 
     done = False
 
