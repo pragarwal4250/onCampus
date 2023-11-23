@@ -37,7 +37,9 @@ Before you can use this script, make sure you have the following installed:
        "username": "your_username",
        "password": "your_password",
        "resume": "resume file name including extension",
-       "coverLetter": "cover letter filename inclusing extension"
+       "coverLetter": "cover letter filename inclusing extension",
+       "pages": "number of pages",
+       "campus": "campus name"
    }
    ```
 

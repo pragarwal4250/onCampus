@@ -12,8 +12,6 @@ mainWeb = "https://webapp4.asu.edu/myasu/student/finances"
 
 dataFile = "data.json"
 
-pages = 2
-
 def setCredAndLogin(dataFile, driver):
     
     # Read the JSON data from the file
@@ -25,6 +23,8 @@ def setCredAndLogin(dataFile, driver):
     password = data["password"]
     resume = data["resume"]
     coverLetter = data["coverLetter"]
+    pages = int(data["pages"])
+    campus = data["campus"]
 
     element = driver.find_element(By.ID, "username")
     element.send_keys(userName)
@@ -33,7 +33,7 @@ def setCredAndLogin(dataFile, driver):
     element.send_keys(password)
     element.send_keys(Keys.ENTER)
 
-    return resume, coverLetter
+    return resume, coverLetter, pages, campus
 
 def openWebPage(webPageName):
     
@@ -75,10 +75,10 @@ def clickOnFindStudentJobsAndSearchOnCampusJobs(driver):
 
     print("Job search welcome")
 
-def selectCampusAndClick(driver):
+def selectCampusAndClick(driver, campus):
 
     element = driver.find_element(By.NAME, "keyWordSearch")
-    element.send_keys("campus:\ tempe")
+    element.send_keys(f"campus:\ {campus}")
     element.send_keys(Keys.ENTER)
 
     # Define an explicit wait with a timeout of 20 seconds
@@ -87,7 +87,7 @@ def selectCampusAndClick(driver):
     # Wait for an element to be visible (replace with the actual element)
     results = wait.until(lambda driver: driver.find_element(By.ID, 'sortByLabel'))
 
-    print("Tempe jobs")
+    print(f"{campus} jobs")
 
 def getAllJobLinksOnPage(driver):
 
@@ -416,13 +416,13 @@ if __name__ == "__main__":
 
     driver = openWebPage(mainWeb)
 
-    resume, coverLetter = setCredAndLogin(dataFile, driver)
+    resume, coverLetter, pages, campus = setCredAndLogin(dataFile, driver)
 
     waitLogin(driver)
 
     clickOnFindStudentJobsAndSearchOnCampusJobs(driver)
 
-    selectCampusAndClick(driver)
+    selectCampusAndClick(driver, campus)
 
     # Define an explicit wait with a timeout of 20 seconds
     wait = WebDriverWait(driver, 60)
